@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# git clone https://github.com/avidaldo/machine-learning-python.git
 # Cambia al directorio de tu repositorio de Git
 cd machine-learning-python/
 
