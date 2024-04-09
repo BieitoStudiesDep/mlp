@@ -16,12 +16,8 @@ from utils.dataPrepare import DataPrepare
 from utils.dataProcessKNNImputer import DataProcessKNNImputer
 from utils.dataProcessSimpleImputer import DataProcessSimpleImputer
 
-isMyEnv = False
-
 # Ruta del archivo CSV con los datos
-archivo_datos = (
-    "ceia-pia/pia-task/pia03-task/data/housing.csv" if isMyEnv else "./data/housing.csv"
-)
+archivo_datos = "task/pia03-task/data/housing.csv"
 
 # Cargar y procesar los datos
 housing, null_rows_idx = DataPrepare(archivo_datos)

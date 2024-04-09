@@ -21,13 +21,13 @@ rm -rf ~/miniconda3/miniconda.sh
 ### create a new environment
 
 ```Bash
-conda create --name py311
+conda create --name py311 python=3.11
 ```
 
 ### use environment
 
 ```Bash
-conda activate env1-py311
+conda activate env1-py311;
 #instalar paquete
 conda install nombre_del_paquete
 # desstalar paquete
@@ -47,11 +47,11 @@ conda list | grep scikit-learn
 
 ```bash
 # algoritmos de pia
-conda activate env1-py311
-conda install numpy # instala en el entorno coda actual
-conda install matplotlib # lib -
-conda install pandas # lib
-conda install scikit-learn
+conda activate env1-py311;
+conda install numpy; # instala en el entorno coda actual
+conda install matplotlib; # lib -
+conda install pandas; # lib
+conda install scikit-learn;
 
 ```
 
@@ -60,39 +60,39 @@ conda install scikit-learn
 ```bash
 # algoritmos de mia
 # tensorflow solo admite hasta python 3.9
-conda create --name env-py38 python=3.8
-conda activate env-py38
+conda create --name env-py38 python=3.8;
+conda activate env-py38;
 
 # tensorflow
 # Biblioteca de aprendizaje automático de código abierto desarrollada por Google que se utiliza principalmente para tareas de aprendizaje automático y desarrollo de modelos de inteligencia artificial.
-conda install tensorflow
+conda install tensorflow;
 
 # numpy
 # Biblioteca para trabajar con arrays multidimensionales y matrices en Python.
-conda install numpy # arrays
+conda install numpy; # arrays
 
 # matplotlib
 # Biblioteca para la creación de gráficos y visualizaciones de datos en Python.
-conda install matplotlib # lib - gráficos
+conda install matplotlib; # lib - gráficos
 
 # pandas
 # Biblioteca de análisis de datos que proporciona estructuras de datos flexibles y herramientas para trabajar con datos estructurados.
-conda install pandas # lib DataFrames Secuencies
+conda install pandas; # lib DataFrames Secuencies
 
 # scikit-learn
 # Biblioteca de aprendizaje automático (machine learning) que proporciona herramientas simples y eficientes para el análisis predictivo de datos.
-conda install scikit-learn
+conda install scikit-learn;
 
 # pexpect
 # Biblioteca de Python para controlar aplicaciones externas (por ejemplo, emuladores de terminal) y automatizar tareas interactivas.
-conda install pexpect
+conda install pexpect;
 
 # seaborn
 # Biblioteca de visualización de datos basada en matplotlib que proporciona una interfaz de alto nivel para crear gráficos estadísticos atractivos y informativos.
-conda install seaborn # lib - gráficos
+conda install seaborn; # lib - gráficos
 
 # pillow
 # Biblioteca de procesamiento de imágenes que proporciona capacidades básicas de manipulación de imágenes, como abrir, guardar, rotar y cambiar el tamaño de las imágenes.
-conda install pillow # procesamiento de imágenes
+conda install pillow; # procesamiento de imágenes
 
 ```
