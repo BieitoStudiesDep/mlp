@@ -1,47 +1,86 @@
 # import data
 # loading decimal library
 from decimal import *
+from typing import List
 
 import pandas as pd
 
+# ---------------------------------------------------------------------------------#
 
-def DFCompare(df1: pd.DataFrame, df2: pd.DataFrame) -> str:
-    DF_TYPE = "DataFrame"
-    # Throw Exception
-    if type(df1) != DF_TYPE:
-        raise Exception("df1 is not a Dataframe")
-    if type(df2) != DF_TYPE:
-        raise Exception("df2 is not a Dataframe")
-    if df1.size != df2.size:
-        raise Exception("dif sinze")
 
-    res = "Compare df1 vs df2"
-    # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.compare.html
+def media_precision_decimales_by_Df(df1, df2):
+    precision_decimales = []
+    # Iterar sobre las filas y comparar los valores de decimales
+    for index, (fila1, fila2) in enumerate(zip(df1.iterrows(), df2.iterrows())):
+        for col in df1.select_dtypes(include=["float64"]).columns:
+            # Comprobar si los valores de los decimales son iguales
+            if fila1[1][col] == fila2[1][col]:
+                # Calcular la precisión de los decimales
+                precision_decimales.append(len(str(fila1[1][col]).split(".")[1]))
 
-    res += "\n == compare types =="
+    # Calcular la media de la precisión de los decimales
+    if precision_decimales:
+        media = sum(precision_decimales) / len(precision_decimales)
+    else:
+        media = 0
 
-    print("\n df1 types :\n", df1.dtypes)
-    print("\n df2 types :\n", df2.dtypes)
+    return media
 
-    types_diff = df1.dtypes.difference(df2.dtypes)
-    res += types_diff
 
-    # column1_diff
+def media_precision_decimales_by_index(df1, df2, indices):
+    precision_decimales = []
 
-    # row1_diff
+    # Iterar sobre los índices proporcionados
+    for idx in indices:
+        # Obtener las filas correspondientes en los DataFrames
+        fila1 = df1.loc[idx]
+        fila2 = df2.loc[idx]
 
-    print("\n df1 (0,0) :\n", df1.iloc[1, 0])
-    print("\n df2 (0,0) :\n", df2.iloc[1, 0])
+        # Iterar sobre las columnas numéricas
+        for col in df1.select_dtypes(include=["float64"]).columns:
+            # Comprobar si los valores de los decimales son iguales
+            if fila1[col] == fila2[col]:
+                # Calcular la precisión de los decimales
+                precision_decimales.append(len(str(fila1[col]).split(".")[1]))
 
-    res += "\n == compare values =="
-    first_value_diff_one_two = df1.iloc[1, 0].compare(df2.iloc[1, 0])
-    res += "\ndf1.iloc[1, 0] VS df2.iloc[1, 0] --> " + first_value_diff_one_two
-    first_value_diff_two_one = df2.iloc[1, 0].compare(df1.iloc[1, 0])
-    res += "\ndf2.iloc[1, 0] VS df1.iloc[1, 0] --> " + first_value_diff_two_one
+    # Calcular la media de la precisión de los decimales
+    if precision_decimales:
+        media = sum(precision_decimales) / len(precision_decimales)
+    else:
+        media = 0
 
-    # DataFrame Compare
-    df1.compare(df2, align_axis=0)
-    df1.compare(df2, keep_shape=True)
-    df1.compare(df2, keep_shape=True, keep_equal=True)
+    return media
 
-    return res
+
+# function main
+# ---------------------------------------------------------------------------------#
+
+
+def DFCompare(
+    df1: pd.DataFrame,
+    df2: pd.DataFrame,
+    onehotencoder_column_indexs: List[int] = None,
+    index_null_values: List[int] = None,
+) -> dict:
+    result = {
+        "df-size-eq": df1.shape == df2.shape,
+        "df-dataType-eq": df1.dtypes.equals(df2.dtypes),
+        "df-columns-eq": df1.columns.equals(df2.columns),
+        "df-rows-eq": df1.index.equals(df2.index),
+        "df-values-eq": (df1 == df2).all().all(),
+    }
+
+    if onehotencoder_column_indexs is not None:
+        result["df-decimals-onehotencoder-values-media"] = (
+            media_precision_decimales_by_index(
+                df1.iloc[:, onehotencoder_column_indexs],
+                df2.iloc[:, onehotencoder_column_indexs],
+            )
+        )
+
+    if index_null_values is not None:
+        result["df-decimals-index-null-values-media"] = (
+            media_precision_decimales_by_index(df1, df2, index_null_values)
+        )
+
+    return result

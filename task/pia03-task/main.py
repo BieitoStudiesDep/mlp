@@ -12,9 +12,9 @@ Versión de Python: 3.8.18
 """
 
 # Importa las funciones definidas en utils
-from utils.dataPrepare import DataPrepare
-from utils.dataProcessKNNImputer import DataProcessKNNImputer
-from utils.dataProcessSimpleImputer import DataProcessSimpleImputer
+from functions.dataPrepare import DataPrepare
+from functions.dataProcessKNNImputer import DataProcessKNNImputer
+from functions.dataProcessSimpleImputer import DataProcessSimpleImputer
 
 # Ruta del archivo CSV con los datos
 archivo_datos = "task/pia03-task/data/housing.csv"

@@ -2,9 +2,9 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from utils.dfUtils import isDFThrow
 
 # import utils
+from utils.dfUtils import isDFThrow
 
 
 def SplitDataToTrain(df: pd.DataFrame) -> pd.DataFrame:

@@ -58,3 +58,57 @@ def dfEqu(df1: pd.DataFrame, df2: pd.DataFrame) -> dict:
         "all_parm_true": all_parm_true,
         "any_parm_true": any_parm_true,
     }
+
+
+def dfGetColumnsWithNullValues(df: pd.DataFrame) -> list:
+    """
+    Return a list of columns that contain null values in the DataFrame.
+    """
+    return df.columns[df.isnull().any()].tolist()
+
+
+def dfGetColumnsWithNonNumericValues(df: pd.DataFrame) -> list:
+    """
+    Return a list of columns that contain non-numeric values in the DataFrame.
+    """
+    non_numeric_columns = []
+    for column in df.columns:
+        if not pd.to_numeric(df[column], errors="coerce").notnull().all():
+            non_numeric_columns.append(column)
+    return non_numeric_columns
+
+
+def isNumeric(val):
+    """Function to check if a value is numeric"""
+    try:
+        pd.to_numeric(val)
+        return True
+    except ValueError:
+        return False
+
+
+def isDFValuesNumeric(df: pd.DataFrame) -> bool:
+    """
+    Function to check if DataFrame values are numeric
+    1. Apply the function to each element of the DataFrame
+    2. Check if all values are numeric
+    """
+    result = df.applymap(isNumeric)
+    return result.all().all()
+
+
+def dfVerifiqueNullAndNotNumberValues(df: pd.DataFrame) -> bool:
+    colsNotNum = dfGetColumnsWithNonNumericValues(df)
+    colsNull = dfGetColumnsWithNullValues(df)
+    print("Verifique Values Not Null and Not Number in DataFrame")
+    print("\tThere are values null:", len(colsNotNum) > 0, "in columns", colsNull)
+    print("\tThere are values not number:", len(colsNull) > 0, "in columns", colsNotNum)
+    return len(colsNull) + len(colsNotNum) > 0
+
+
+def isDFContainNullValues(df: pd.DataFrame) -> bool:
+    return df.isna().any().any()
+
+
+def getDFIndexOfNullValues(df: pd.DataFrame) -> pd.Series:
+    return df.isnull().any(axis=1)
