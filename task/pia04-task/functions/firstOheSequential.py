@@ -13,6 +13,7 @@ from utils.dfUtils import (  # dfGetColumnsWithNonNumericValues, dfGetColumnsWit
 
 
 def FirstOheSequential(df: pd.DataFrame) -> pd.DataFrame:
+    print("== OHE de manera secuencial ==")
     print("[Objetivo]")
     print("\t1.Cambiar los valores no numéricos por valores numéricos ")
     print("\t2.Cambiar los valores nulos por un valor representativo ")
